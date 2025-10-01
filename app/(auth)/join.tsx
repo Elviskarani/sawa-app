@@ -78,7 +78,7 @@ export default function JoinScreen() {
             {/* Email Sign Up */}
             <TouchableOpacity
               onPress={handleEmailSignUp}
-              className="bg-minty-lime rounded-2xl py-3 flex-row items-center justify-center"
+              className="bg-minty-lime rounded-2xl border py-3 flex-row items-center justify-center"
             >
               <Mail size={20} color="#000" strokeWidth={2} className="mr-3" />
               <Text className="text-gray-900 text-center font-medium text-base ml-2">

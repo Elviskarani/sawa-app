@@ -47,7 +47,7 @@ export default function EmailSignUpScreen() {
               onChangeText={setDisplayName}
               placeholder="Display name"
               placeholderTextColor="#666"
-              className="bg-gray-200 rounded-2xl px-6 py-3 text-gray-900 text-sm"
+              className="bg-gray-200 rounded-2xl px-6 border py-3 text-gray-900 text-sm"
             />
 
             {/* Email Input */}
@@ -58,7 +58,7 @@ export default function EmailSignUpScreen() {
               placeholderTextColor="#666"
               keyboardType="email-address"
               autoCapitalize="none"
-              className="bg-gray-200 rounded-2xl px-6 py-3 text-gray-900 text-sm"
+              className="bg-gray-200 rounded-2xl border px-6 py-3 text-gray-900 text-sm"
             />
 
             {/* Password Input */}
@@ -68,7 +68,7 @@ export default function EmailSignUpScreen() {
               placeholder="Password"
               placeholderTextColor="#666"
               secureTextEntry
-              className="bg-gray-200 rounded-2xl px-6 py-3 text-gray-900 text-sm"
+              className="bg-gray-200 rounded-2xl px-6 py-3 border text-gray-900 text-sm"
             />
           </View>
 
