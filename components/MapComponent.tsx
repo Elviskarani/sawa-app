@@ -1,8 +1,25 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import StationMarker from './StationMarker';
 
-export default function MapComponent() {
+interface MapComponentProps {
+  onMarkerPress: (station: ChargingStation) => void;
+}
+
+export interface ChargingStation {
+  id: number;
+  latitude: number;
+  longitude: number;
+  title: string;
+  distance: string;
+  plugs: Array<{
+    type: string;
+    count: number;
+  }>;
+}
+
+export default function MapComponent({ onMarkerPress }: MapComponentProps) {
   const [region, setRegion] = useState({
     latitude: -1.2921,
     longitude: 36.8219,
@@ -10,11 +27,40 @@ export default function MapComponent() {
     longitudeDelta: 0.5,
   });
 
-  // Example charging station markers
-  const chargingStations = [
-    { id: 1, latitude: -1.2921, longitude: 36.8219, title: 'Thika Station' },
-    { id: 2, latitude: -1.1021, longitude: 37.0152, title: 'Juja Station' },
-    { id: 3, latitude: -0.9947, longitude: 36.9597, title: 'Ruiru Station' },
+  // Example charging station markers with full data
+  const chargingStations: ChargingStation[] = [
+    {
+      id: 1,
+      latitude: -1.2921,
+      longitude: 36.8219,
+      title: 'Ev chaja Juja',
+      distance: '15km',
+      plugs: [
+        { type: 'Type 2', count: 1 },
+        { type: 'CCS2', count: 1 },
+      ],
+    },
+    {
+      id: 2,
+      latitude: -1.1021,
+      longitude: 37.0152,
+      title: 'Thika Charging Hub',
+      distance: '25km',
+      plugs: [
+        { type: 'Type 2', count: 2 },
+        { type: 'CCS2', count: 1 },
+      ],
+    },
+    {
+      id: 3,
+      latitude: -0.9947,
+      longitude: 36.9597,
+      title: 'Ruiru Station',
+      distance: '18km',
+      plugs: [
+        { type: 'CCS2', count: 2 },
+      ],
+    },
   ];
 
   return (
@@ -29,13 +75,10 @@ export default function MapComponent() {
         showsCompass={false}
       >
         {chargingStations.map((station) => (
-          <Marker
+          <StationMarker
             key={station.id}
-            coordinate={{
-              latitude: station.latitude,
-              longitude: station.longitude,
-            }}
-            title={station.title}
+            station={station}
+            onPress={() => onMarkerPress(station)}
           />
         ))}
       </MapView>

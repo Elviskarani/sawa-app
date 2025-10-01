@@ -1,14 +1,19 @@
 import FilterButton from '@/components/FilterButton';
-import MapComponent from '@/components/MapComponent';
+import MapComponent, { ChargingStation } from '@/components/MapComponent';
 import SearchBar from '@/components/SearchBar';
+import StationCard from '@/components/StationCard';
+import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Animated, Keyboard, KeyboardAvoidingView, Platform, StatusBar, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Map() {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [showFilter, setShowFilter] = useState(false);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+  const [selectedStation, setSelectedStation] = useState<ChargingStation | null>(null);
+  const cardAnimation = useState(new Animated.Value(300))[0];
 
   useEffect(() => {
     const keyboardWillShow = Keyboard.addListener(
@@ -31,6 +36,25 @@ export default function Map() {
     };
   }, []);
 
+  // Animate card in/out
+  useEffect(() => {
+    if (selectedStation) {
+      Animated.spring(cardAnimation, {
+        toValue: 0,
+        useNativeDriver: true,
+        tension: 50,
+        friction: 8,
+      }).start();
+    } else {
+      Animated.spring(cardAnimation, {
+        toValue: 300,
+        useNativeDriver: true,
+        tension: 50,
+        friction: 8,
+      }).start();
+    }
+  }, [selectedStation]);
+
   const handleSearch = (query: string) => {
     setSearchQuery(query);
     console.log('Searching for:', query);
@@ -43,6 +67,24 @@ export default function Map() {
     // Implement your filter logic here
   };
 
+  const handleMarkerPress = (station: ChargingStation) => {
+    setSelectedStation(station);
+  };
+
+  const handleCardPress = () => {
+    if (selectedStation) {
+      // Navigate to detail screen
+      router.push({
+        pathname: '/station-detail',
+        params: { id: selectedStation.id }
+      });
+    }
+  };
+
+  const handleCloseCard = () => {
+    setSelectedStation(null);
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -51,7 +93,27 @@ export default function Map() {
       <StatusBar barStyle="dark-content" />
       <View className="flex-1">
         {/* Map Component - Takes full screen */}
-        <MapComponent />
+        <MapComponent onMarkerPress={handleMarkerPress} />
+        
+        {/* Station Card - Animated from bottom */}
+        {selectedStation && !isKeyboardVisible && (
+          <Animated.View
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              transform: [{ translateY: cardAnimation }],
+              zIndex: 20,
+            }}
+          >
+            <StationCard
+              station={selectedStation}
+              onPress={handleCardPress}
+              onClose={handleCloseCard}
+            />
+          </Animated.View>
+        )}
         
         {/* Search Bar and Filter Button - Animated position */}
         <Animated.View 
@@ -64,7 +126,7 @@ export default function Map() {
             },
             isKeyboardVisible
               ? { top: 0 }
-              : { bottom: 0 }
+              : { bottom: selectedStation ? 200 : 0 }
           ]}
         >
           <SafeAreaView edges={isKeyboardVisible ? ['top'] : ['bottom']} className="bg-transparent">
