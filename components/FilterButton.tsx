@@ -10,7 +10,7 @@ export default function FilterButton({ onPress }: FilterButtonProps) {
   return (
     <TouchableOpacity
       onPress={onPress}
-      className="bg-white rounded-2xl border shadow-lg p-3 ml-2"
+      className="bg-white rounded-full border shadow-lg p-3 ml-2"
       activeOpacity={0.7}
     >
       <Ionicons name="options-outline" size={24} color="#333" />

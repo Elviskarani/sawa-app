@@ -1,18 +1,27 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from 'react'
+import React from 'react';
+import { View, Text, ScrollView, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-
-const HomeScreen = () => {
+export default function BookmarkScreen() {
   return (
-    <SafeAreaView>
-
-    <View>
-      <Text className="text-4xl color-green-300"> bookmark</Text>
-      <View className="w-54 h-54 bg-blue-500" />
+    <View className="flex-1 bg-lime-300">
+      <StatusBar 
+        barStyle="dark-content" 
+        backgroundColor="#d9f99d" 
+        translucent={false}
+      />
+      
+      <SafeAreaView className="flex-1" edges={['top']}>
+        {/* Header */}
+        <View className="bg-lime-300 px-4 py-4">
+          <Text className="text-black text-3xl font-semibold"style={{ fontFamily: 'LeagueSpartan-SemiBold' }}>Bookmark</Text>
+        </View>
+        
+        {/* Content Area */}
+        <ScrollView className="flex-1 bg-white">
+         
+        </ScrollView>
+      </SafeAreaView>
     </View>
-    </SafeAreaView>
-
-  )
+  );
 }
-export default HomeScreen

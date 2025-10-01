@@ -20,7 +20,7 @@ export default function SearchBar({ onSearch, placeholder = 'Search...' }: Searc
   };
 
   return (
-    <View className="flex-row items-center bg-white rounded-2xl border px-4 py-2 shadow-md">
+    <View className="flex-row items-center bg-white rounded-2xl border px-4 py-1 shadow-md">
       <TextInput
         className="flex-1 text-base font-medium text-gray-800"
         placeholder={placeholder}
