@@ -1,19 +1,29 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Pressable } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { X } from 'lucide-react-native';
+import React, { useState } from 'react';
+import { Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function FilterModal() {
   const router = useRouter();
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
-
+  
   const filterOptions = [
-    { id: 'fast', label: 'Fast Charging' },
-    { id: 'available', label: 'Available Now' },
-    { id: 'free', label: 'Free' },
-    { id: 'type2', label: 'Type 2' },
-    { id: 'ccs', label: 'CCS' },
+    { id: 'ccs1', label: 'CCS1', icon: 'ev-plug-ccs1' },
+    { id: 'ccs2', label: 'CCS2', icon: 'ev-plug-ccs2' },
+    { id: 'chademo', label: 'CHAdeMO', icon: 'ev-plug-chademo' },
+    { id: 'caravan', label: 'Caravan Main...', icon: 'ev-plug-type2' },
+    { id: 'commando', label: 'Commando', icon: 'power-socket' },
+    { id: 'gbt', label: 'GB/T', icon: 'ev-plug-ccs2' },
+    { id: 'gbt-fast', label: 'GB/T (Fast)', icon: 'ev-plug-ccs2' },
+    { id: 'j1772', label: 'J-1772', icon: 'ev-plug-type1' },
+    { id: 'tesla', label: 'Tesla (Roadst...', icon: 'ev-plug-tesla' },
+    { id: 'three-phase', label: 'Three Phase', icon: 'sine-wave' },
+    { id: 'type2', label: 'Type 2', icon: 'ev-plug-type2' },
+    { id: 'type3', label: 'Type 3', icon: 'power-plug-outline' },
+    { id: 'wall', label: 'Wall', icon: 'power-socket-us' },
+    { id: 'wall-euro', label: 'Wall (Euro)', icon: 'power-socket-eu' },
   ];
 
   const toggleFilter = (id: string) => {
@@ -41,56 +51,76 @@ export default function FilterModal() {
         onPress={() => router.back()} 
       />
       
-      {/* Modal Content - takes only part of screen */}
+      {/* Modal Content */}
       <View className="bg-white rounded-t-2xl border max-h-[85%]">
         <SafeAreaView edges={['bottom']}>
           {/* Header */}
-          <View className="flex-row items-center justify-between px-6 pt-6 pb-4">
-            <Text className="text-xl font-semibold">Filters</Text>
+          <View className="flex-row items-center justify-between px-6 pt-6 pb-4 border-b border-gray-200">
             <TouchableOpacity onPress={() => router.back()}>
               <X size={24} color="#333" />
             </TouchableOpacity>
+            <Text className="text-xl font-semibold">Filters</Text>
+            <TouchableOpacity onPress={handleReset}>
+              <Text className="text-base font-semibold text-gray-700">RESET</Text>
+            </TouchableOpacity>
           </View>
 
-          {/* Filter Options */}
-          <ScrollView className="px-6 py-2" showsVerticalScrollIndicator={false}>
-            <Text className="text-sm font-semibold text-gray-600 mb-3">CHARGER TYPE</Text>
+          {/* Filter Options - Grid Layout */}
+          <ScrollView className="px-6 py-4" showsVerticalScrollIndicator={false}>
+            <Text className="text-base font-semibold mb-4">Vehicles & Plugs</Text>
             
-            {filterOptions.map((option) => (
-              <TouchableOpacity
-                key={option.id}
-                onPress={() => toggleFilter(option.id)}
-                className={`p-4 mb-2 rounded-lg border ${
-                  selectedFilters.includes(option.id)
-                    ? 'bg-green-50 border-green-500'
-                    : 'bg-white border-gray-200'
-                }`}
-              >
-                <Text
-                  className={`font-medium ${
-                    selectedFilters.includes(option.id) ? 'text-green-700' : 'text-gray-700'
-                  }`}
-                >
-                  {option.label}
-                </Text>
+            <View className="flex-row justify-between items-center mb-4">
+              <Text className="text-base font-medium">Vehicle</Text>
+              <TouchableOpacity>
+                <Text className="text-green-500 font-medium">Add Vehicle</Text>
               </TouchableOpacity>
-            ))}
+            </View>
+            
+            <View className="flex-row flex-wrap gap-3 mb-6">
+              {filterOptions.map((option) => (
+                <TouchableOpacity
+                  key={option.id}
+                  onPress={() => toggleFilter(option.id)}
+                  className={`flex-col items-center justify-center py-4 px-2  rounded-lg`}
+                  style={{
+                    width: '30%',
+                    backgroundColor: selectedFilters.includes(option.id) ? '#E8F5E9' : '#f3f4f6',
+                    borderWidth: selectedFilters.includes(option.id) ? 2 : 0,
+                    borderColor: selectedFilters.includes(option.id) ? '#000000' : 'transparent',
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name={option.icon as any}
+                    size={32}
+                    color={selectedFilters.includes(option.id) ? '#006400' : '#6b7280'}
+                  />
+                  <Text 
+                    className={`mt-2 font-medium text-center text-xs ${
+                      selectedFilters.includes(option.id) ? 'text-gray-800' : 'text-gray-700'
+                    }`}
+                    numberOfLines={1}
+                  >
+                    {option.label}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+
+            {/* Share Feedback Section */}
+            <TouchableOpacity className="py-4 border-t border-gray-200">
+              <Text className="text-center text-base font-semibold">Share Feedback</Text>
+            </TouchableOpacity>
           </ScrollView>
 
-          {/* Footer Buttons */}
-          <View className="flex-row px-6 py-4 gap-3">
-            <TouchableOpacity
-              onPress={handleReset}
-              className="flex-1 py-3 rounded-lg border border-gray-300"
-            >
-              <Text className="text-center font-semibold text-gray-700">Reset</Text>
-            </TouchableOpacity>
-            
+          {/* Footer */}
+          <View className="flex-row items-center justify-between px-6 py-4 border-t border-gray-200">
+            <Text className="text-base font-semibold">12 locations found</Text>
             <TouchableOpacity
               onPress={handleApply}
-              className="flex-1 py-3 rounded-lg bg-green-600"
+              className="px-8 py-2 rounded-full"
+              style={{ backgroundColor: '#c8f542' }}
             >
-              <Text className="text-center font-semibold text-white">Apply Filters</Text>
+              <Text className="text-center font-bold text-black">VIEW</Text>
             </TouchableOpacity>
           </View>
         </SafeAreaView>
