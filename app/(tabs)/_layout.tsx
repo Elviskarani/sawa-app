@@ -14,35 +14,35 @@ export default function TabLayout() {
         tabBarButton: HapticTab,
         tabBarStyle: {
           backgroundColor: '#ffffff',
-          borderTopWidth: 0,
+          borderTopWidth: 1,
         },
       }}>
       <Tabs.Screen
         name="maps"
         options={{
           title: 'Maps',
-          tabBarIcon: ({ color }) => <Map size={28} color={color} />,
+          tabBarIcon: ({ color }) => <Map size={28} color={color} strokeWidth={1.5} />,
         }}
       />
       <Tabs.Screen
         name="trips"
         options={{
           title: 'Trips',
-          tabBarIcon: ({ color }) => <Car size={28} color={color} />,
+          tabBarIcon: ({ color }) => <Car size={28} color={color} strokeWidth={1.5} />,
         }}
       />
       <Tabs.Screen
         name="bookmarks"
         options={{
           title: 'Bookmarks',
-          tabBarIcon: ({ color }) => <Bookmark size={28} color={color} />,
+          tabBarIcon: ({ color }) => <Bookmark size={28} color={color} strokeWidth={1.5} />,
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) => <User size={28} color={color} />,
+          tabBarIcon: ({ color }) => <User size={28} color={color} strokeWidth={1.5} />,
         }}
       />
     </Tabs>

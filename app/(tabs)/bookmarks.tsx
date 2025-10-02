@@ -13,7 +13,7 @@ export default function BookmarkScreen() {
       
       <SafeAreaView className="flex-1" edges={['top']}>
         {/* Header */}
-        <View className="bg-lime-300 px-4 py-4">
+        <View className="bg-lime-300 px-4  py-4">
           <Text className="text-black text-3xl font-semibold"style={{ fontFamily: 'LeagueSpartan-SemiBold' }}>Bookmark</Text>
         </View>
         
