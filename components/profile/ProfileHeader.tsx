@@ -7,17 +7,18 @@ interface ProfileHeaderProps {
   email: string;
   onAddVehicle: () => void;
   onEditProfile: () => void;
+  
 }
 
 export const ProfileHeader = ({ name, email, onAddVehicle, onEditProfile }: ProfileHeaderProps) => {
   return (
-    <View className="bg-white px-4 py-6 border-b border-gray-200">
+    <View className="bg-lime-300 px-4 py-6 border-b border-gray-200">
       <View className="flex-row items-center">
         {/* Avatar */}
         <View className="w-20 h-20 rounded-full bg-orange-200 border-4 border-gray-300 items-center justify-center">
           <View className="w-16 h-16 rounded-full bg-orange-300 items-center justify-center">
-            <View className="w-8 h-8 rounded-full bg-orange-400 mb-2" />
-            <View className="w-12 h-6 rounded-t-full bg-orange-400" />
+            <View className="w-4 h-4 rounded-full bg-orange-400 mb-2" />
+            <View className="w-8 h-4 rounded-t-full bg-orange-400" />
           </View>
         </View>
         

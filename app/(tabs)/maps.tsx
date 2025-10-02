@@ -5,7 +5,7 @@ import StationCard from '@/components/StationCard';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Animated, Keyboard, KeyboardAvoidingView, Platform, StatusBar, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function Map() {
   const router = useRouter();
@@ -85,7 +85,9 @@ export default function Map() {
     setSelectedStation(null);
   };
 
-  return (
+  return ( 
+    <SafeAreaProvider>
+      <SafeAreaView className="flex-1" edges={['top','left','right']}>
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       className="flex-1 bg-white"
@@ -153,5 +155,7 @@ export default function Map() {
         )}
       </View>
     </KeyboardAvoidingView>
+    </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
