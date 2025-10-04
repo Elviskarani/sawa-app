@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function BookmarkScreen() {
   return (
-    <View className="flex-1 bg-lime-300">
+    <View className="flex-1 bg-lime-300 ">
       <StatusBar 
         barStyle="dark-content" 
         backgroundColor="#d9f99d" 
@@ -13,7 +13,7 @@ export default function BookmarkScreen() {
       
       <SafeAreaView className="flex-1" edges={['top']}>
         {/* Header */}
-        <View className="bg-lime-300 px-4  py-4">
+        <View className="bg-lime-300 px-4 border-b py-4">
           <Text className="text-black text-3xl font-semibold"style={{ fontFamily: 'LeagueSpartan-SemiBold' }}>Bookmark</Text>
         </View>
         

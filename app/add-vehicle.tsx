@@ -2,30 +2,24 @@ import React from 'react';
 import { View, Text, ScrollView, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function TripsScreen() {
+export default function AddvehicleScreen() {
   return (
     <View className="flex-1 bg-lime-300 ">
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor="#d9f99d"
+      <StatusBar 
+        barStyle="dark-content" 
+        backgroundColor="#d9f99d" 
         translucent={false}
       />
-
+      
       <SafeAreaView className="flex-1" edges={['top']}>
         {/* Header */}
         <View className="bg-lime-300 px-4 border-b py-4">
-          <Text className="text-black text-3xl font-semibold" style={{ fontFamily: 'LeagueSpartan-SemiBold' }}>Trips</Text>
+          <Text className="text-black text-3xl font-semibold"style={{ fontFamily: 'LeagueSpartan-SemiBold' }}>Add your Vehicle</Text>
         </View>
-
-
-
+        
         {/* Content Area */}
         <ScrollView className="flex-1 bg-white">
-          <View className="flex-1 items-center justify-center px-8 py-20">
-            <Text className="text-gray-400 text-center text-base" style={{ fontFamily: 'LeagueSpartan-Regular' }}>
-              coming soon trip planner is under development!!
-            </Text>
-          </View>
+         
         </ScrollView>
       </SafeAreaView>
     </View>

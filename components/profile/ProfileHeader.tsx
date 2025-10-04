@@ -12,7 +12,7 @@ interface ProfileHeaderProps {
 
 export const ProfileHeader = ({ name, email, onAddVehicle, onEditProfile }: ProfileHeaderProps) => {
   return (
-    <View className="bg-lime-300 px-4 py-6 border-b border-gray-200">
+    <View className="bg-lime-300 px-4 py-6 border-b ">
       <View className="flex-row items-center">
         {/* Avatar */}
         <View className="w-20 h-20 rounded-full bg-orange-200 border-4 border-gray-300 items-center justify-center">
@@ -29,7 +29,7 @@ export const ProfileHeader = ({ name, email, onAddVehicle, onEditProfile }: Prof
           </Text>
           <Text className="text-gray-600 text-sm mt-1">{email}</Text>
           <TouchableOpacity onPress={onAddVehicle}>
-            <Text className="text-lime-500 text-sm font-medium mt-1">Add vehicle</Text>
+            <Text className="text-blue-500 text-sm font-medium mt-1">Add vehicle</Text>
           </TouchableOpacity>
         </View>
         

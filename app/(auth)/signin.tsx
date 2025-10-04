@@ -52,7 +52,7 @@ export default function EmailSignInScreen() {
               placeholderTextColor="#666"
               keyboardType="email-address"
               autoCapitalize="none"
-              className="bg-gray-200 rounded-2xl px-6 py-3 text-gray-900 text-sm"
+              className="bg-gray-200 rounded-2xl border px-6 py-3 text-gray-900 text-sm"
             />
 
             {/* Password Input */}
@@ -62,7 +62,7 @@ export default function EmailSignInScreen() {
               placeholder="Password"
               placeholderTextColor="#666"
               secureTextEntry
-              className="bg-gray-200 rounded-2xl px-6 py-3 text-gray-900 text-sm"
+              className="bg-gray-200 rounded-2xl border px-6 py-3 text-gray-900 text-sm"
             />
           </View>
 

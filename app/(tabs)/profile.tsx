@@ -17,6 +17,7 @@ import { ProfileHeader } from "@/components/profile/ProfileHeader";
 import { MenuSectionHeader } from "@/components/profile/MenuSectionHeader";
 import { MenuItem } from "@/components/profile/MenuItem";
 import { Footer } from "@/components/profile/Footer";
+import { router } from "expo-router";
 
 export default function ProfileScreen() {
   const handlePress = (item: string) => {
@@ -25,19 +26,14 @@ export default function ProfileScreen() {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView className="flex-1" edges={["top"]}>
+      <SafeAreaView className="flex-1 bg-lime-300"  edges={["top"]}>
         <View className="flex-1 bg-lime-300">
           <StatusBar
             barStyle="dark-content"
             backgroundColor="#d9f99d"
             translucent={false}
           />
-          {/* Header */}
-          {/* <View className="bg-lime-300 px-4  py-4">
-          <Text className="text-black text-3xl font-semibold" style={{ fontFamily: 'LeagueSpartan-SemiBold' }}>
-            
-          </Text>
-        </View> */}
+      
 
           {/* Content Area */}
           <ScrollView className="flex-1 bg-gray-50">
@@ -52,31 +48,30 @@ export default function ProfileScreen() {
             <MenuItem
               icon={Bell}
               title="Notifications & Alert"
-              onPress={() => handlePress("Notifications")}
+              onPress={() => router.push('/notification')}
             />
             <MenuItem
               icon={Plus}
               title="Add a New Charging Location"
-              onPress={() => handlePress("Add Location")}
+              onPress={() => router.push('/add-location')}
             />
             <MenuItem
               icon={Home}
               title="Add a Private Home Location"
-              onPress={() => handlePress("Add Home")}
+              onPress={() => router.push('/add-location')}
             />
             <MenuItem
               icon={FileText}
               title="Charge History"
-              onPress={() => handlePress("Charge History")}
+              onPress={() => router.push('/charge-history')}
               showBorder={false}
             />
-
             <View className="h-4 bg-gray-50" />
 
             <MenuItem
               icon={HelpCircle}
               title="Frequently Asked Questions"
-              onPress={() => handlePress("FAQ")}
+              onPress={() => router.push ('/FAQ')}
             />
             <MenuItem
               icon={MessageSquare}
@@ -91,7 +86,7 @@ export default function ProfileScreen() {
             <MenuItem
               icon={Settings}
               title="Settings"
-              onPress={() => handlePress("Settings")}
+              onPress={() => router.push('/Settings')}
               showBorder={false}
             />
 

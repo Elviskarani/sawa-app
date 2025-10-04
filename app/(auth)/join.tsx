@@ -90,7 +90,7 @@ export default function JoinScreen() {
           {/* Sign In Link */}
           <TouchableOpacity onPress={handleSignIn} className="mt-8">
             <Text className="text-gray-900 text-center text-base">
-              Already a member? <Text className="font-semibold">Sign in</Text>
+              Already a member? <Text className="font-semibold text-green-400">Sign in</Text>
             </Text>
           </TouchableOpacity>
         </View>

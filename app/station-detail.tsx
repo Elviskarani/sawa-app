@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -6,12 +6,28 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter, useLocalSearchParams } from 'expo-router';
+import CheckInModal from '@/components/CheckInModal';
 
 export default function StationDetailScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
+  const [showCheckInModal, setShowCheckInModal] = useState(false);
+
+  // Map plug types to their corresponding icons
+  const plugIconMap: Record<string, string> = {
+    'CCS1': 'ev-plug-ccs1',
+    'CCS2': 'ev-plug-ccs2',
+    'CHAdeMO': 'ev-plug-chademo',
+    'Type 2': 'ev-plug-type2',
+    'Type 3': 'power-plug-outline',
+    'J-1772': 'ev-plug-type1',
+    'Tesla': 'ev-plug-tesla',
+    'GB/T': 'ev-plug-ccs2',
+    'Wall': 'power-socket-us',
+    'Wall (Euro)': 'power-socket-eu',
+  };
 
   // In a real app, you would fetch this data based on params.id
   const station = {
@@ -24,6 +40,15 @@ export default function StationDetailScreen() {
     ],
   };
 
+  const handleCheckIn = () => {
+    setShowCheckInModal(true);
+  };
+
+  const handleSelectStatus = (status: string) => {
+    console.log('Selected status:', status);
+    // Handle the selected status here (e.g., save to backend, show confirmation, etc.)
+  };
+
   return (
     <View className="flex-1 bg-[#E8F5E9]">
       <SafeAreaView edges={['top']} className="flex-1">
@@ -33,8 +58,6 @@ export default function StationDetailScreen() {
             <TouchableOpacity
               onPress={() => router.back()}
               className="bg-white rounded-full border  p-2 w-10 h-10 items-center justify-center"
-             
-             
             >
               <Ionicons name="arrow-back" size={20} color="#000" />
             </TouchableOpacity>
@@ -42,7 +65,6 @@ export default function StationDetailScreen() {
             {/* Bookmark button */}
             <TouchableOpacity
               className="bg-white rounded-full border p-3"
-              
             >
               <Ionicons name="bookmark-outline" size={24} color="#000" />
             </TouchableOpacity>
@@ -107,13 +129,23 @@ export default function StationDetailScreen() {
             {station.plugs.map((plug, index) => (
               <View key={index} className="mb-4">
                 <View className="flex-row items-center justify-between mb-2">
-                  <View>
-                    <Text className="font-semibold text-gray-900 text-base">
-                      {plug.type}
-                    </Text>
-                    <Text className="text-gray-600 text-sm">
-                      {plug.chargers} Charger
-                    </Text>
+                  <View className="flex-row items-center flex-1">
+                    {/* Plug Icon */}
+                    <View className="bg-[#E8F5E9] border rounded-2xl p-2 mr-3">
+                      <MaterialCommunityIcons
+                        name={plugIconMap[plug.type] as keyof typeof MaterialCommunityIcons.glyphMap}
+                        size={32}
+                        color="#6b7280"
+                      />
+                    </View>
+                    <View>
+                      <Text className="font-semibold text-gray-900 text-base">
+                        {plug.type}
+                      </Text>
+                      <Text className="text-gray-600 text-sm">
+                        {plug.chargers} Charger
+                      </Text>
+                    </View>
                   </View>
                   <Text className="font-semibold text-gray-900">1 plug</Text>
                 </View>
@@ -131,12 +163,6 @@ export default function StationDetailScreen() {
                 )}
               </View>
             ))}
-
-            {/* View Chargers Link */}
-            <TouchableOpacity className="flex-row items-center justify-center mt-4">
-              <Text className="text-blue-600 font-medium">View Chargers</Text>
-              <Ionicons name="arrow-forward" size={18} color="#2563eb" className="ml-1" />
-            </TouchableOpacity>
           </View>
 
           {/* Bottom spacing */}
@@ -147,12 +173,19 @@ export default function StationDetailScreen() {
         <View className="px-4 pb-4 bg-transparent">
           <TouchableOpacity 
             className="bg-minty-lime border rounded-lg py-4 items-center"
-            
+            onPress={handleCheckIn}
           >
             <Text className="text-gray-900 font-bold text-lg">CHECK IN</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
+
+      {/* Check In Modal */}
+      <CheckInModal
+        visible={showCheckInModal}
+        onClose={() => setShowCheckInModal(false)}
+        onSelectStatus={handleSelectStatus}
+      />
     </View>
   );
 }
